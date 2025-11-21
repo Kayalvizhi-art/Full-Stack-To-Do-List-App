@@ -1,14 +1,14 @@
-# Use the official OpenJDK 11 JRE slim image as the base image
-FROM openjdk:11-jre-slim
+# 1️⃣ Use lightweight JDK
+FROM openjdk:17-jdk-slim
 
-# Set the working directory inside the container to /app
+# 2️⃣ Set working directory
 WORKDIR /app
 
-# Copy the JAR file from the target directory to the /app directory in the container
-COPY target/todolist-0.0.1-SNAPSHOT /app/your-application.jar
+# 3️⃣ Copy the JAR file (generated after mvn package)
+COPY target/*.jar app.jar
 
-# Expose port 8080 for the Spring Boot application to listen on
+# 4️⃣ Expose backend port
 EXPOSE 8080
 
-# Command to run the application when the container starts
-CMD ["java", "-jar", "your-application.jar"]
+# 5️⃣ Start the Spring Boot application
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
